@@ -77,25 +77,25 @@ class Player:
         self.balance = balance
 
     def __str__(self):
-        return f'Name: {self.p_name}\nBalance: {self.balance}'
+        return f'Имя: {self.p_name}\nБаланс: {self.balance}'
 
     def rate(self, p_rate):
         """
         :param p_rate: type - int
-        :return: print('Your rate is done. Your balance is {}'.format(self.balance))
+        :return: print('Ставка сделана! Ваш баланс {}'.format(self.balance))
         """
 
         while p_rate > self.balance:
-            print(f'Your rate bigger then your balance. Your balance is {self.balance}')
+            print(f'Ваша ставка превышает Ваш баланс. Ваш баланс {self.balance}')
             while True:
                 try:
-                    p_rate = int(input('Input your rate: '))
+                    p_rate = int(input('Сделайте ставку: '))
                     break
                 except ValueError:
-                    print('Error input format')
+                    print('Неверный формат ввода! Попробуйте еще раз.')
                     continue
         self.balance -= p_rate
-        return print('Your rate is done. Your balance is {}'.format(self.balance))
+        return print('Ставка сделана! Ваш баланс {}'.format(self.balance))
 
     def add_money(self, p_rate):
         """
@@ -133,7 +133,7 @@ class Hand:
         return f'Количество тузов в Вашей руке равно {self.count_ace}'
 
 
-name = input('What is your name? : ')
+name = input('Как Вас зовут? : ')
 player = Player(name)
 while player.balance > 0:
     deck = Deck()
@@ -142,10 +142,10 @@ while player.balance > 0:
     rate = 0
     while True:
         try:
-            rate = int(input('Input your rate: '))
+            rate = int(input('Сделайте ставку : '))
             break
         except ValueError:
-            print('Error input format')
+            print('Неверный формат ввода! Попробуйте еще раз.')
             continue
 
     player.rate(rate)
@@ -158,15 +158,15 @@ while player.balance > 0:
     player_hand.add(deck)
     print(f'У Вас {player_hand}')
     while player_hand.values_in_hand <= 21:
-        answer = input('Do you want to pull one more card? Y/N :')
+        answer = input('Вы хотите вытянуть еще одну карту? Y/N :')
         if answer.lower() == 'y':
             player_hand.add(deck)
-            print(f'You have {player_hand}')
+            print(f'Вы имеете {player_hand}')
         elif answer.lower() == 'n':
             print("Ход переходит к диллеру")
             break
         else:
-            print('Error input format. Input Y or N')
+            print('Неверный формат ввода! Попробуйте еще раз. Введите Y или N')
 
     while diller_hand.values_in_hand < 17:
         diller_hand.add(deck)
@@ -174,29 +174,29 @@ while player.balance > 0:
         print(f'У диллера {diller_hand}')
         print(f'У {player.p_name} {player_hand}')
         if player_hand.values_in_hand < diller_hand.values_in_hand <= 21:
-            print(f'Diller WIN! {player.p_name} your balance is {player.balance}')
+            print(f'Дилер победил! {player.p_name} Ваш баланс {player.balance}')
         elif player_hand.values_in_hand > 21 >= diller_hand.values_in_hand:
-            print(f'Diller WIN! {player.p_name} your balance is {player.balance}')
+            print(f'Дилер победил! {player.p_name} Ваш баланс {player.balance}')
         elif player_hand.values_in_hand == diller_hand.values_in_hand <= 21:
             player.add_money(rate)
-            print(f'Dead heat! {player.p_name} your balance is {player.balance}')
+            print(f'Ничья! {player.p_name} Ваш баланс {player.balance}')
         elif player_hand.values_in_hand > 21 and diller_hand.values_in_hand > 21:
             player.add_money(rate)
-            print(f'Dead heat! {player.p_name} your balance is {player.balance}')
+            print(f'Ничья! {player.p_name} Ваш баланс {player.balance}')
         elif diller_hand.values_in_hand > 21 >= player_hand.values_in_hand:
             player.add_money(rate * 2)
-            print(f'{player.p_name} WIN! Your balance is {player.balance}')
+            print(f'{player.p_name} победил! Ваш баланс {player.balance}')
         else:
             player.add_money(rate * 2)
-            print(f'{player.p_name} WIN! Your balance is {player.balance}')
-    one_more_game = input('Do you want to play one more? Y/N :')
+            print(f'{player.p_name} победил! Ваш баланс {player.balance}')
+    one_more_game = input('Хотите сыграть еще раз? Y/N :')
     # Сделать цикл while
     if one_more_game.lower() == 'y':
         continue
     elif one_more_game.lower() == 'n':
-        print("Game over")
+        print("Игра окончена")
         break
     else:
-        print('Error input format. Input Y or N')
+        print('Неверный формат ввода! Попробуйте еще раз. Введите Y или N')
 else:
-    print("Game over!\nВы остались без штанов!")
+    print("Игра окончена!\nВы остались без штанов!")
