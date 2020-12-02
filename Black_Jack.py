@@ -189,14 +189,17 @@ while player.balance > 0:
         else:
             player.add_money(rate * 2)
             print(f'{player.p_name} победил! Ваш баланс {player.balance}')
-    one_more_game = input('Хотите сыграть еще раз? Y/N :')
+    one_more_game = input('Хотите сыграть еще раз? Y/N')
     # Сделать цикл while
-    if one_more_game.lower() == 'y':
-        continue
-    elif one_more_game.lower() == 'n':
-        print("Игра окончена")
-        break
-    else:
+    while one_more_game.lower() != 'y' and one_more_game.lower() != 'n':
         print('Неверный формат ввода! Попробуйте еще раз. Введите Y или N')
+        one_more_game = input('Хотите сыграть еще раз? Y/N :')
+        continue
+    else:
+        if one_more_game.lower() == 'y':
+            continue
+        else:
+            print("Игра окончена")
+            break
 else:
     print("Игра окончена!\nВы остались без штанов!")
